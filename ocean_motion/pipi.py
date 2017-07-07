@@ -1,66 +1,41 @@
 from __future__ import print_function
 import time
-#from pololu_drv8835_rpi import motors, MAX_SPEED
+from pololu_drv8835_rpi import motors, MAX_SPEED
 """
-Moving 2nd notor of pololu
+Moving 2nd motor of pololu_drv8835_rpi driver package
+
+Move - moves 2nd motor of driver pololu_drv8835_rpi clockwise with positive
+and counter clockwise with negative value of distance
 
 """
 
+def move(distance):
+	"""
+	Distance - number, cm
+	Move the motor up
+	Additional weight makes easier or harder motor's movement
+	Needs calibration
+	
+	"""
+	if distance > 0:
+		speed = 480
+	elif distance < 0:
+		speed = -480
+		distance = -distance
+	else:
+		print("Not moving!")
+	duration = float(distance*0.112)
+	print(duration)
+	motors.motor2.setSpeed(speed);
+	time.sleep(duration);
+	motors.motor2.setSpeed(0);
+	pass
 
 
-if __name__ == '__main__':
-	#motors.setSpeeds(0, 0)
-	def clockwise(distance_, steps_): #distance in m 
-		#motors.motor2.setSpeed(MAX_SPEED)
-		print("max")
-		time.sleep(1.7)
-		print(1.7)
-		#motors.setSpeeds(0, 0)
-		print("END")
-	move = str(raw_input("R or L"))
-	move = move.lower()
-	print(move)
-	if move == "r":
-		clockwise(2.5, 5)
-
-
-
-
-
-
-# print('Name:', __name__)
-
-# def moveUp():
-# 	print('moveUP')
-
-# if __name__ == '__main__':
-# 	try:
-# 		turns = int(raw_input("Number of turns:"))
-# 		i=0
-# 		while i<turns :
-# 			state_ = str(raw_input("T or F"))
-# 			#print (state_)
-
-# 			if state_ == "T" :
-# 				state = True
-# 				print(state)
-# 				i+=1
-# 				print("State is {} and you have {} turns to go".format(state,turns-i))
-# 				motors.motor2.setSpeed(-MAX_SPEED)
-# 				time.sleep(0.7)
-# 				motors.setSpeeds(0, 0)
-# 			elif state_ == "F" and i>0 :
-# 				state = False
-# 				print(state)
-# 				i-=1
-# 				print("State is {} and you have {} turns to go".format(state, turns-i))
-# 				motors.motor2.setSpeed(MAX_SPEED)
-# 				time.sleep(0.7)
-# 				motors.setSpeeds(0, 0)
-# 			else:
-# 				print("Try again")
-
-# 	finally:
-# 		# Stop the motors, even if there is an exception
-# 		# or the user presses Ctrl+C to kill the process.
-# 		motors.setSpeeds(0, 0)
+def check_step(duration, speed):
+	# duration = 1 # seconds
+	# speed = 480 # MAX_SPEED
+	# step = 9 # cm
+	motors.motor2.setSpeed(speed);
+	time.sleep(duration);
+	motors.motor2.setSpeed(0);
