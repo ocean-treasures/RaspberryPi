@@ -49,11 +49,11 @@ def move_(distance):
 
 def move(dist, sync=False):
 	if sync==True:
-    dist = float(dist) 
-	  Process(target=move_,args=[dist]).start() # Starts new process to turn the motor
+    	    dist = float(dist) 
+	    Process(target=move_,args=[dist]).start() # Starts new process to turn the motor
   else:
     move_(dist)
 
 if __name__ == '__main__':
-	dist_ = float(raw_input("Distance in cm: ")) 
-	move(dist_)
+    dist_ = float(raw_input("Distance in cm: ")) 
+    move(dist_)
