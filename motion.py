@@ -2,6 +2,7 @@ from __future__ import print_function
 from pololu_drv8835_rpi import motors, MAX_SPEED
 from multiprocessing import Process 
 import logging
+import time
 
 """
 Moving 2nd motor of pololu_drv8835_rpi driver
