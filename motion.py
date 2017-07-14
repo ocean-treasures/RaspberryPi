@@ -31,7 +31,9 @@ def move_sync(duration, speed):
 	finally:
 		motors.motor2.setSpeed(0);
 
-def move(duration, speed=MAX_SPEED, async=True):
+def move(duration, clockwise, speed=MAX_SPEED, async=True):
+	if not clockwise:
+		speed = speed * -1
 	p = Process(target=move_sync, args=[duration, speed])
 	p.start()
 	if not async:
