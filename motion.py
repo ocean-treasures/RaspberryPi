@@ -26,7 +26,7 @@ def move_sync(duration, speed):
 		motors.motor2.setSpeed(speed);
 		time.sleep(duration);
 	except Exception as e:
-		logger.exception(e)		
+		logger.exception("Error: ")		
 	finally:
 		motors.motor2.setSpeed(0);
 
