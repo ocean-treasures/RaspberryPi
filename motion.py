@@ -16,7 +16,7 @@ Distance = 9, cm
 
 """
 
-def move(speed, duration):
+def move_sync(speed, duration):
 	try:
 		motors.motor2.setSpeed(speed);
 		time.sleep(duration);
@@ -24,3 +24,9 @@ def move(speed, duration):
 		pass
 	finally:
 		motors.motor2.setSpeed(0);
+
+def move(speed, duration, async=True):
+	p = Process(target=move_sync, args=[speed, duration])
+	p.start()
+	if not async:
+		p.join()
