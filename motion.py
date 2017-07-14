@@ -20,5 +20,7 @@ def move(speed, duration):
 	try:
 		motors.motor2.setSpeed(speed);
 		time.sleep(duration);
+	except:
+		pass
 	finally:
 		motors.motor2.setSpeed(0);
