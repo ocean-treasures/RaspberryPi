@@ -17,8 +17,8 @@ Distance = 9, cm
 """
 
 def move(speed, duration):
-	if duration>0:
+	try
 		motors.motor2.setSpeed(speed);
 		time.sleep(duration);
-	else:
+	finally:
 		motors.motor2.setSpeed(0);
