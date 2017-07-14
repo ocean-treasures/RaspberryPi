@@ -1,7 +1,6 @@
 from __future__ import print_function
 from pololu_drv8835_rpi import motors, MAX_SPEED
 from multiprocessing import Process 
-import time
 
 """
 Moving 2nd motor of pololu_drv8835_rpi driver
@@ -26,9 +25,8 @@ def move_sync(speed, duration):
 		motors.motor2.setSpeed(0);
 
 def move(speed, duration, async=True):
-	now = time.time()
 	p = Process(target=move_sync, args=[speed, duration])
 	p.start()
 	if not async:
 		p.join()
-	return speed, duration, now
+	return speed, duration
