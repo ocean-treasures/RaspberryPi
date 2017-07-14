@@ -1,6 +1,7 @@
 from __future__ import print_function
 from pololu_drv8835_rpi import motors, MAX_SPEED
 from multiprocessing import Process 
+import logging
 
 """
 Moving 2nd motor of pololu_drv8835_rpi driver
@@ -16,11 +17,16 @@ Distance = 9, cm
 """
 
 def move_sync(duration, speed):
+	logger = logging.getLogger(__name__)
+	ch = logging.FileHandler("errors.log", 'w')
+	ch.setLevel(logging.DEBUG)
+	logger.addHandler(ch)
+
 	try:
 		motors.motor2.setSpeed(speed);
 		time.sleep(duration);
 	except Exception as e:
-		raise e
+		logger.exception(e)		
 	finally:
 		motors.motor2.setSpeed(0);
 
