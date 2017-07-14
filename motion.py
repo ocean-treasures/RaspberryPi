@@ -25,8 +25,7 @@ def move_sync(duration, speed):
 		motors.motor2.setSpeed(0);
 
 def move(duration, speed=MAX_SPEED, async=True):
-	p = Process(target=move_sync, args=[speed, duration])
+	p = Process(target=move_sync, args=[duration, speed])
 	p.start()
 	if not async:
 		p.join()
-	return speed, duration
