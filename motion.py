@@ -19,8 +19,8 @@ def move_sync(duration, speed):
 	try:
 		motors.motor2.setSpeed(speed);
 		time.sleep(duration);
-	except:
-		pass
+	except Exception as e:
+		raise e
 	finally:
 		motors.motor2.setSpeed(0);
 
