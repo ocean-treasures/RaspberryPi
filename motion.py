@@ -8,12 +8,14 @@ Moving 2nd motor of pololu_drv8835_rpi driver
 Positive value means clockwise rotation
 Negative value means counterclockwise rotation
 
+Setup:
 Time = 1, second(s)
 Axle d = 0.3, cm
 Rotates 8 times
 Rope diameter = 0.1, cm
 Distance = 9, cm
 
+This file works with the setup shown.
 """
 
 
@@ -36,7 +38,7 @@ def move_(distance):
 		movement = True 
 		speed = -speed
 		 # Max speed for a motor with this driver for the other direction
-		distance = -distance # Making distance positive for further calculations
+		distance = -distance # Making distance positive again for further calculations
 		
 	else:
 		movement = False # Motor won't move
