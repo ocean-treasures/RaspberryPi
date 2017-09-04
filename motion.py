@@ -1,6 +1,7 @@
 from __future__ import print_function
 from pololu_drv8835_rpi import motors, MAX_SPEED
 from multiprocessing import Process 
+import logging
 import time
 
 """
@@ -18,56 +19,25 @@ Distance = 9, cm
 This file works with the setup shown.
 """
 
+def move_sync(duration, speed):
+	logger = logging.getLogger(__name__)
+	ch = logging.FileHandler("errors.log", 'w')
+	ch.setLevel(logging.DEBUG)
+	logger.addHandler(ch)
 
-def move_(distance):
-	"""
-		Moving the motor
-		"distance" - number, cm
-		Positive or negative for direction of the rotation
-		
-	"""
-	movement = False  
-	speed = 250
+	try:
+		motors.motor2.setSpeed(speed);
+		time.sleep(duration);
+	except Exception as e:
+		logger.exception("Error: ")		
+	finally:
+		motors.motor2.setSpeed(0);
 
-	if distance > 0:
-		movement = True # Motor will move
-		#speed = 250 # 19.2 MHz / 2 / 480 = 20 kHz
-		# Max speed for a motor with this driver
-		
-	elif distance < 0:
-		movement = True 
-		speed = -speed
-		 # Max speed for a motor with this driver for the other direction
-		distance = -distance # Making distance positive again for further calculations
-		
-	else:
-		movement = False # Motor won't move
+def move(duration, clockwise, speed=MAX_SPEED, async=True):
+	if not clockwise:
+		speed = speed * -1
+	p = Process(target=move_sync, args=[duration, speed])
+	p.start()
+	if not async:
+		p.join()
 
-	if movement == True: 
-		duration = float(distance) 
-		print("\n Moving {} seconds. \n".format(duration)) 
-		# Prints on screen how much time the motor will rotate
-		motors.motor2.setSpeed(speed); # Starting motor
-		time.sleep(duration*0.3); # Time for motor to rotate, seconds
-		motors.motor2.setSpeed(0); 
-		# Turning off the motor *both motors in the driver*
-	
-	else:	
-		pass 
-
-
-def move(dist, sync=False):
-    
-    if sync==True :
-        dist = float(dist) 
-        Process(target=move_,args=[dist]).start() 
-        # Starts new process to turn the motor
-    
-    else :
-        move_(dist)
-
-
-if __name__ == '__main__':
-	
-	dist_ = float(raw_input("Distance in cm: ")) 
-	move(dist_)
