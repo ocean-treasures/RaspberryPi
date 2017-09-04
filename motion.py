@@ -15,8 +15,6 @@ Axle d = 0.3, cm
 Rotates 8 times
 Rope diameter = 0.1, cm
 Distance = 9, cm
-
-This file works with the setup shown.
 """
 
 def move_sync(duration, speed):
