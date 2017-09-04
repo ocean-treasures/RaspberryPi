@@ -40,7 +40,8 @@ git clone https://github.com/ocean-treasures/ocean_motion
 
 h3. Running the program
 
-You can run the ".py" file that drives the motor in both directions.  To run the motion.py , navigate to the ocean-motion directory and run:
+You can run the ".py" file that drives the motor in both directions.  To run the motion.py, 
+navigate to the ocean-motion directory and run:
 
 <pre>
 sudo python motion.py</pre>
