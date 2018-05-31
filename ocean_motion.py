@@ -21,3 +21,6 @@ class Motor(serial.Serial):
     def down(self, steps):
         cmd = "D{}\r\n".format(steps)
         self.write(cmd.encode())
+
+
+motor = Motor(Motor.find_device('/'))
